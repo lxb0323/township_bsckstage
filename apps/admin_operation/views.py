@@ -27,6 +27,7 @@ from utils.token import authenticated,debug1
 
 # Create your views here.
 
+
 class SendVerificationCode(APIView):
     def get(self,request,*args,**kwargs):
         '''
@@ -60,6 +61,7 @@ class SendVerificationCode(APIView):
         print(is_verify,111111111111111)
         assert is_verify == 4,110003
         return JsonResponse({"code":1,"msg":"验证成功"})
+
 
 class LoginView(APIView):
     def post(self,request,*args,**kwargs):
@@ -122,6 +124,7 @@ class LoginView(APIView):
                 print(e)
                 re_data['mobile'] = '用户不存在'
         return JsonResponse(re_data)
+
 
 # 添加商品总类
 class ProductCategoryView(APIView):
@@ -190,6 +193,7 @@ class WROrderableGoodsView(APIView):
             TODO: 获取可订购商品列表
         '''
         pass
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -217,6 +221,7 @@ class WROrderableGoodsView(APIView):
             return JsonResponse({'code':110013,'msg':"操作失败"})
         return JsonResponse({'code':1,"msg":"操作成功"})
 
+
 # 添加可订购商品详情
 class WROrderableGoodsInfoView(APIView):
     @authenticated
@@ -236,6 +241,7 @@ class WROrderableGoodsInfoView(APIView):
 
             }
         return JsonResponse({'code':1,'data':data})
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -298,6 +304,7 @@ class WROrderableGoodsInfoView(APIView):
                 return JsonResponse({'code':110024,'msg':'添加失败'})
         return JsonResponse({'code':1,'msg':msg})
         
+
 # 编辑可订购商品图文
 class WROrderableGoodsGraphicView(APIView):
     @authenticated
@@ -317,6 +324,7 @@ class WROrderableGoodsGraphicView(APIView):
 
             }
         return JsonResponse({'code':1,'data':data})
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -368,6 +376,8 @@ class WROrderableGoodsGraphicView(APIView):
                 print(e)
                 return JsonResponse({'code':110024,'msg':'添加失败'})
         return JsonResponse({'code':1,'msg':msg})
+
+
 # 添加直购商品
 class WRDirectCommodView(APIView):
     @authenticated
@@ -396,6 +406,7 @@ class WRDirectCommodView(APIView):
         data = {'code':1,"count":p.count,"num_pages":p.num_pages,"next_page":next_page,"previous_page":previous_page,
             "ret":page1.object_list}
         return Response(data)
+
     @authenticated 
     def post(self,request,*args,**kwargs):
         '''
@@ -421,6 +432,7 @@ class WRDirectCommodView(APIView):
             return JsonResponse({'code':110013,'msg':"操作失败"})
         return JsonResponse({'code':1,"msg":"操作成功"})
 
+
 # 编辑直购商品详情
 class WRDirectCommodInfoView(APIView):
     @authenticated
@@ -440,6 +452,7 @@ class WRDirectCommodInfoView(APIView):
 
             }
         return JsonResponse({'code':1,'data':data})
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -512,6 +525,8 @@ class WRDirectCommodInfoView(APIView):
                 re_data['msg'] = '添加失败'
                 return JsonResponse(re_data)
         return JsonResponse(re_data)
+
+
 # 编辑直购商品图文
 class WRDirectCommodGraphicView(APIView):
     @authenticated
@@ -531,6 +546,7 @@ class WRDirectCommodGraphicView(APIView):
 
             }
         return JsonResponse({'code':1,'data':data})
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -586,6 +602,7 @@ class WRDirectCommodGraphicView(APIView):
                 return JsonResponse(re_data)
         return JsonResponse(re_data)
 
+
 # 添加直购商品库存
 class WRDirectCommodStockView(APIView):
     @authenticated
@@ -614,6 +631,7 @@ class WRDirectCommodStockView(APIView):
         data = {'code':1,"count":p.count,"num_pages":p.num_pages,"next_page":next_page,"previous_page":previous_page,
             "ret":page1.object_list}
         return Response(data)
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -645,6 +663,8 @@ class WRDirectCommodStockView(APIView):
             print(e)
             return JsonResponse({'code':110013,'msg':"操作失败"})
         return JsonResponse({'code':1,"msg":"操作成功"})
+
+
 # 编辑库存
 class EditDirectCommodStockView(APIView):
     @authenticated
@@ -665,6 +685,7 @@ class EditDirectCommodStockView(APIView):
             re_data['msg'] = '获取失败'
             re_data['status'] = '查询不到任何信息'
         return JsonResponse(re_data)
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -759,6 +780,7 @@ class AgriculturalEnterpriseEntryView(APIView):
         data = {'code':1,"count":p.count,"num_pages":p.num_pages,"next_page":next_page,"previous_page":previous_page,
             "ret":page1.object_list}
         return Response(data)
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -812,6 +834,7 @@ class AgriculturalEnterpriseEntryView(APIView):
             re_data['msg'] = '操作失败'
         return JsonResponse(re_data)
 
+
 class AgriculturalEnterpriseEditView(APIView):
     @authenticated
     def get(self,request,*args,**kwargs):
@@ -834,6 +857,7 @@ class AgriculturalEnterpriseEditView(APIView):
             re_data['code'] = 110012
             re_data['msg'] = '查询失败'
         return JsonResponse(re_data)
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -895,6 +919,7 @@ class AgriculturalEnterpriseEditView(APIView):
             re_data['msg'] = '操作失败'
         return JsonResponse(re_data)
 
+
 class SupplierMerchantProductEntryView(APIView):
     @authenticated
     def get(self,request,*args,**kwargs):
@@ -922,6 +947,7 @@ class SupplierMerchantProductEntryView(APIView):
         data = {'code':1,"count":p.count,"num_pages":p.num_pages,"next_page":next_page,"previous_page":previous_page,
             "ret":page1.object_list}
         return Response(data)
+
     @authenticated
     def post(self,request,*args,**kwargs):
         '''
@@ -973,6 +999,7 @@ class SupplierMerchantProductEntryView(APIView):
             re_data['msg'] = '操作失败'
         return JsonResponse(re_data)
 
+
 class SupplierMerchantProductEditView(APIView):
     @authenticated
     def get(self,request,*args,**kwargs):
@@ -995,6 +1022,7 @@ class SupplierMerchantProductEditView(APIView):
             re_data['code'] = 110012
             re_data['msg'] = '查询失败'
         return JsonResponse(re_data)
+    
     @authenticated
     def post(self,request,*args,**kwargs):
         '''

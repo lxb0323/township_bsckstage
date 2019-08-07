@@ -144,6 +144,7 @@ class ReviewOperateView(APIView):
             re_data['msg'] = '操作失败'
         return JsonResponse(re_data)
 
+        
 class MyThread(threading.Thread):
     def __init__(self, func, args, name=''):
         threading.Thread.__init__(self)
@@ -157,6 +158,8 @@ class MyThread(threading.Thread):
             return self.result
         except Exception:
             return None
+
+
 # 领取审核任务
 class AuditTaskCollectionView(APIView):
     # threads = []
@@ -169,6 +172,7 @@ class AuditTaskCollectionView(APIView):
             adict['up_time'] = d_one['up_time']
             alist.append(adict)
         return alist
+
     def get_blist(self,slist):
         blist = []
         ug_obj = models.UserGraphic.objects.filter(audit_situation=2).exclude(graphic_id__in=slist).values('graphic_id','up_time')
@@ -178,6 +182,7 @@ class AuditTaskCollectionView(APIView):
             adict['up_time'] = ug_one['up_time']
             blist.append(adict)
         return blist
+
     def get_clist(self,slist):
         clist = []
         c_obj = models.Comment.objects.filter(audit_situation=2).exclude(comment_id__in=slist).values('comment_id','up_time')
@@ -261,6 +266,7 @@ class AuditTaskCollectionView(APIView):
         elist = b + c + d
         elist.sort(key=lambda x: x["up_time"],reverse=False)
         return elist
+    
     @authenticated
     def get(self,request,*args,**kwargs):
         '''
@@ -329,6 +335,7 @@ class AuditTaskCollectionView(APIView):
             re_data['msg'] = "任务领取失败，请重新操作或联系管理员"
         return JsonResponse(re_data)
 
+
 # 人脸核身
 def get_sign():
     api_key = "6n5LKRbuFzG8l9NZ-KUdx4CqXx464PgT"
@@ -345,6 +352,7 @@ def get_sign():
     sign = base64.b64encode(sign_tmp + raw)
     return sign
 
+
 class PeopleFace(APIView):
     def get(self,request,*args,**kwargs):
         data = {'sign':get_sign(),'sign_version':'hmac_sha1','return_url':'http://94.191.125.82','notify_url':'http://94.191.125.82/wangtian_backend/api/v1/release_review/ph_face/',
@@ -357,12 +365,15 @@ class PeopleFace(APIView):
         # return render(request,'test1.html',{'url':url})
         return JsonResponse({'code':1,'url':url})
 
+
 class IndesShowTest(APIView):
     def get(self,request,*args,**kwargs):
         return render(request,"a1.html")
 
+        
 class PhedFace(APIView):
     def post(self,request,*args,**kwargs):
         data = request.data.get('data', None)
         gk_data = json.loads(data)
+        print(gk_data,111111)
         return JsonResponse({'code':1,'msg':'migin','gk_data':gk_data})
